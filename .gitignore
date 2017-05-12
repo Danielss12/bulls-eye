@@ -1,0 +1,49 @@
+
+*.sublime-project
+*.sublime-workspace
+
+*.sublime-project
+node_modules/
+*.pyc
+.idea/
+settings_local.py
+uploads/
+venv/
+.venv/
+.settings
+.pydevproject
+.project
+*.sublime-workspace
+.sass-cache/
+mypages_templates/
+
+#-----Merdas da mac
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Docker
+docker-key
+.postgres
+
+/amt_v7_designer.sublime-project
+/amt_v7_designer.sublime-workspace
+
