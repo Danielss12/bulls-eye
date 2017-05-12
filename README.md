@@ -3,7 +3,7 @@ A darts multi-player online platform where users can play in real time against o
 
 # Libraries
 <!-- Image Processing / Device Camera Access / Canvas Rendering -->
-scikit-image  -> Python Image processor
+scikit-image  -> Python Image processor <br />
 Tracking.js - > JavaScript Computer Vision on the web
 WebRTC -> Real-time Communication Between Browsers
 Three.js -> JavaScript 3D library
