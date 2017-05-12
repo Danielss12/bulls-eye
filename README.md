@@ -13,7 +13,6 @@ We need to decide between NodeJs or Python. This decision will be highly influen
 
 # Roadmap - 1.0 Version
 1 - Access device camera through WebRTC and display the video on canvas. <-** We are here **->
-
 2 - Understand what is the best technology/methodology to detect the dart board and the darts landing on it.
 3 - Design the board score matrix, so we can match the areas with the respective points.
 4 - Develop a minimal 501 single player game.
