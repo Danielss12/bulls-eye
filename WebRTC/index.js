@@ -7,6 +7,9 @@
  */
 
 'use strict';
+// Global vars
+var animFrame;
+
 // Get DOM elements
 var errorElement = document.querySelector('#errorMsg');
 var video = document.querySelector('video');
@@ -17,9 +20,42 @@ var constraints = window.constraints = {
   video:  { width: 640, height: 480 }
 };
 
-// Start webcam
-navigator.mediaDevices.getUserMedia(constraints).
-    then(handleSuccess).catch(handleError);
+// Create the canvas where we can post frames
+var canvas = document.createElement('canvas');
+canvas.width = 640;
+canvas.height = 480;
+var context = canvas.getContext('2d');
+
+//document.body.appendChild("<h2>CANVAS</h2> <br />");
+document.body.appendChild(canvas);
+
+// Start script
+init();
+
+function init() {
+  // Start webcam
+  navigator.mediaDevices.getUserMedia(constraints).
+      then(handleSuccess).catch(handleError);
+  // 
+  getFrame();
+}
+
+// Get video frames
+var i = 0;
+function getFrame () {
+  console.log(i++);
+  // Use capture to get this frame into canvas
+  capture();
+  animFrame = window.requestAnimationFrame(getFrame);
+}
+
+
+function capture() {
+    context.drawImage(video, 0, 0, 640, 480);
+
+    // do other stuff
+}
+
 
 setTimeout(function() {
   stopStreaming();
