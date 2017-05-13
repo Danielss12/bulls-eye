@@ -3,8 +3,8 @@ A darts multi-player online platform where users can play in real time against o
 
 
 # Roadmap - 1.0 Version
-1 - Access device camera through WebRTC and display the video on canvas. <b><-** We are here **-></b> <br />
-2 - Understand what is the best technology/methodology to detect the dart board and the darts landing on it. <b><-** We are here **-></b> <br />
+1 - Access device camera through WebRTC and display the video on canvas. <b> ** We are here ** </b> <br />
+2 - Understand what is the best technology/methodology to detect the dart board and the darts landing on it. <b> ** We are here ** </b> <br />
 3 - Design the board score matrix, so we can match the areas with the respective points. <br />
 4 - Develop a minimal 501 single player game. <br />
 5 - Create users accounts and a score board history <br />
@@ -14,7 +14,7 @@ A darts multi-player online platform where users can play in real time against o
 # Roadmap - Milestone Nº1
 -- WebRTC works on all the main browsers on laptops and PC's, check it out here -> (https://codelabs.developers.google.com/codelabs/webrtc-web/#0).
 For mobile apps in Android & IOS WebRTC as native commands which need to be implemented but also works (https://webrtc.org/native-code/). We can develop Android and IOS apps with React native and use the specific WebRTC technology for each platform. <br />
-For now we will focus on just get the video through the laptop/PC webcam to be able to process the image and guarantee we can detect the dart board, which is the main selling point of our app, withouth it everything else is pointless. <b><-** ACHIEVED **-></b> <br />
+For now we will focus on just get the video through the laptop/PC webcam to be able to process the image and guarantee we can detect the dart board, which is the main selling point of our app, withouth it everything else is pointless. <b> ** ACHIEVED ** </b> <br />
 
 -- Try diferent image processing approaches to find wich are the best ways to detect the board and the darts on it. For now will use the Tracking.js library but have the feeling this will not be the best approach due to the fact the processing power heavy lifting will be done on the device CPU which means if the user as a old mobile it might not work. So we should have in mind to use Python or Node to process the image on the server side.
 
