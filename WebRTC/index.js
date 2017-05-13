@@ -7,23 +7,32 @@
  */
 
 'use strict';
-
+// Get DOM elements
 var errorElement = document.querySelector('#errorMsg');
 var video = document.querySelector('video');
 
 // Put variables in global scope to make them available to the browser console.
 var constraints = window.constraints = {
   audio: false,
-  video: true
+  video:  { width: 640, height: 480 }
 };
 
+// Start webcam
+navigator.mediaDevices.getUserMedia(constraints).
+    then(handleSuccess).catch(handleError);
+
+setTimeout(function() {
+  stopStreaming();
+  alert("Ughhh!! you ugly fucker, shutting down for system proctection!");
+}, 5000);
+
 function handleSuccess(stream) {
-  var videoTracks = stream.getVideoTracks();
-  console.log('Got stream with constraints:', constraints);
-  console.log('Using video device: ' + videoTracks[0].label);
-  stream.oninactive = function() {
-    console.log('Stream inactive');
-  };
+  // var videoTracks = stream.getVideoTracks();
+  // console.log('Got stream with constraints:', constraints);
+  // console.log('Using video device: ' + videoTracks[0].label);
+  // stream.oninactive = function() {
+  //   console.log('Stream inactive');
+  // };
   window.stream = stream; // make variable available to browser console
   video.srcObject = stream;
 }
@@ -47,5 +56,7 @@ function errorMsg(msg, error) {
   }
 }
 
-navigator.mediaDevices.getUserMedia(constraints).
-    then(handleSuccess).catch(handleError);
+function stopStreaming() {
+  var track = stream.getTracks()[0];  // if only one media track
+  track.stop();
+}
