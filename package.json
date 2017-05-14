@@ -1,0 +1,27 @@
+{
+  "name": "bulls-eye",
+  "version": "1.0.0",
+  "description": "A darts multi-player online platform where users can play in real time against other users around the globe!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Orlandohub/bulls-eye.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Orlandohub/bulls-eye/issues"
+  },
+  "homepage": "https://github.com/Orlandohub/bulls-eye#readme",
+  "devDependencies": {
+    "webpack": "^2.5.1"
+  },
+  "dependencies": {
+    "tracking": "^1.1.3"
+  }
+}

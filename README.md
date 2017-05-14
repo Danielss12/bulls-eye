@@ -48,6 +48,9 @@ https://webrtc.github.io/samples/ <br />
 https://www.html5rocks.com/en/tutorials/getusermedia/intro/ <br />
 https://react.rocks/tag/WebRTC <br />
 
+-- Motion detection: <br />
+http://codersblock.com/blog/motion-detection-with-javascript/ <br />
+
 -- Object Detection with HTML5 getUserMedia <br />
 http://techslides.com/object-detection-with-html5-getusermedia <br />
 
