@@ -63,186 +63,11 @@
 /******/ 	__webpack_require__.p = "/scripts/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scripts_WebRTC_index__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scripts_WebRTC_index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__scripts_WebRTC_index__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_tracking__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_tracking___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_tracking__);
-
-
-
-var FastTracker = function() {
-  FastTracker.base(this, 'constructor');
-};
-
-tracking.inherits(FastTracker, tracking.Tracker);
-tracking.Fast.THRESHOLD = 2;
-
-FastTracker.prototype.threshold = tracking.Fast.THRESHOLD;
-FastTracker.prototype.track = function(pixels, width, height) {
-  // stats.begin();
-  var gray = tracking.Image.grayscale(pixels, width, height);
-  var corners = tracking.Fast.findCorners(gray, width, height);
-  // stats.end();
-  this.emit('track', {
-    data: corners
-  });
-};
-
-var tracker = new FastTracker();
-
-// Initialize WebRTC object
-var webRTC = new __WEBPACK_IMPORTED_MODULE_0__scripts_WebRTC_index___default.a.WebRTC();
-webRTC.startVideo();
-
-
-var playButton = document.querySelector("#startVideo");
-// var stopButton = document.querySelector("#stopVideo");
-
-playButton.addEventListener('click', function() {
-  webRTC.startVideo();
-});
-
-// stopButton.addEventListener('click', function() {
-//   self.stopVideo();
-// });
-
-
-tracker.on('track', function(event) {
-	console.log("Canvas context", webRTC.context)
-	webRTC.context.clearRect(0, 0, webRTC.width, webRTC.height);
-	var corners = event.data;
-	console.log("EVENT", corners);
-	for (var i = 0; i < corners.length; i += 2) {
-		webRTC.context.fillStyle = '#f00';
-		webRTC.context.fillRect(corners[i], corners[i + 1], 2, 2);
-	}
-});
-
-tracking.track('#video', tracker);
-
-var gui = new dat.GUI();
-
-gui.add(tracker, 'threshold', 1, 100).onChange(function(value) {
-  tracking.Fast.THRESHOLD = value;
-});
-
-
-
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-function WebRTC() {
-  var self = this;
-
-  this.animFram
-  this.width = 640;
-  this.height = 480;
-
-  // Get DOM elements
-  this.errorElement = document.querySelector('#errorMsg');
-  this.video = document.querySelector('video');
-  // this.playButton = document.querySelector("#startVideo");
-  this.stopButton = document.querySelector("#stopVideo");
-
-  // Put variables in global scope to make them available to the browser console.
-  this.constraints = window.constraints = {
-    audio: false,
-    video:  { width: this.width, height: this.height }
-  };
-
-  // this.startVideo();
-  // Add event listners
-  // this.playButton.addEventListener('click', function() {
-  //   self.startVideo();
-  // });
-
-  this.stopButton.addEventListener('click', function() {
-    self.stopVideo();
-  });
-  // Create the canvas where we can post frames
-  this.canvas = document.querySelector('#myCanvas');
-  // this.canvas.setAttribute("id", "myCanvas")
-  this.canvas.width = this.width;
-  this.canvas.height = this.height;
-  this.context = this.canvas.getContext('2d');
-  // context.globalCompositeOperation = 'difference';
-
-  // document.body.appendChild(this.canvas);
-
-}
-
-WebRTC.prototype = {
-  constructor: WebRTC,
-  startVideo: function() {
-    navigator.mediaDevices.getUserMedia(this.constraints).then(this.handleSuccess.bind(this)).catch(this.handleError.bind(this));
-  },
-  handleSuccess: function(stream) {
-    console.log("STREAM", stream);
-    // var videoTracks = stream.getVideoTracks();
-    // console.log('Got stream with constraints:', constraints);
-    // console.log('Using video device: ' + videoTracks[0].label);
-    // stream.oninactive = function() {
-    //   console.log('Stream inactive');
-    // };
-    window.stream = stream; // make variable available to browser console
-    this.video.srcObject = stream;
-    // Stream video to canvas context
-    this.getFrame();
-  },
-  handleError: function(error) {
-    if (error.name === 'ConstraintNotSatisfiedError') {
-      this.errorMsg('The resolution ' + this.constraints.video.width.exact + 'x' +
-          this.constraints.video.width.exact + ' px is not supported by your device.');
-    } else if (error.name === 'PermissionDeniedError') {
-      this.errorMsg('Permissions have not been granted to use your camera and ' +
-        'microphone, you need to allow the page access to your devices in ' +
-        'order for the demo to work.');
-    }
-    this.errorMsg('getUserMedia error: ' + error.name, error);
-  },
-  errorMsg: function(msg, error) {
-    errorElement.innerHTML += '<p>' + msg + '</p>';
-    if (typeof error !== 'undefined') {
-      console.error(error);
-    }
-  },
-  stopVideo: function() {
-    var track = stream.getTracks()[0];  // if only one media track
-    track.stop();
-  },
-  getFrame: function () {
-    // Use capture to get this frame into canvas
-    this.capture();
-    this.animFrame = window.requestAnimationFrame(this.getFrame.bind(this));
-  },
-  capture: function() {
-      this.context.drawImage(this.video, 0, 0, this.width, this.height);
-
-      // Save the image data to an url to future sharing
-      // var dataURL = canvas.toDataURL();
-      // console.log(dataURL);
-      // do other stuff
-  }
-}
-
-module.exports.WebRTC = WebRTC;
-
-/***/ }),
-/* 2 */
 /***/ (function(module, exports) {
 
 /**
@@ -2690,6 +2515,181 @@ module.exports.WebRTC = WebRTC;
   };
 
 }());
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function WebRTC() {
+  var self = this;
+
+  this.animFram
+  this.width = 640;
+  this.height = 480;
+
+  // Get DOM elements
+  this.errorElement = document.querySelector('#errorMsg');
+  this.video = document.querySelector('video');
+  // this.playButton = document.querySelector("#startVideo");
+  this.stopButton = document.querySelector("#stopVideo");
+
+  // Put variables in global scope to make them available to the browser console.
+  this.constraints = window.constraints = {
+    audio: false,
+    video:  { width: this.width, height: this.height }
+  };
+
+  // this.startVideo();
+  // Add event listners
+  // this.playButton.addEventListener('click', function() {
+  //   self.startVideo();
+  // });
+
+  this.stopButton.addEventListener('click', function() {
+    self.stopVideo();
+  });
+  // Create the canvas where we can post frames
+  this.canvas = document.querySelector('#myCanvas');
+  // this.canvas.setAttribute("id", "myCanvas")
+  this.canvas.width = this.width;
+  this.canvas.height = this.height;
+  this.context = this.canvas.getContext('2d');
+  // context.globalCompositeOperation = 'difference';
+
+  // document.body.appendChild(this.canvas);
+
+}
+
+WebRTC.prototype = {
+  constructor: WebRTC,
+  startVideo: function() {
+    navigator.mediaDevices.getUserMedia(this.constraints).then(this.handleSuccess.bind(this)).catch(this.handleError.bind(this));
+  },
+  handleSuccess: function(stream) {
+    console.log("STREAM", stream);
+    // var videoTracks = stream.getVideoTracks();
+    // console.log('Got stream with constraints:', constraints);
+    // console.log('Using video device: ' + videoTracks[0].label);
+    // stream.oninactive = function() {
+    //   console.log('Stream inactive');
+    // };
+    window.stream = stream; // make variable available to browser console
+    this.video.srcObject = stream;
+    // Stream video to canvas context
+    this.getFrame();
+  },
+  handleError: function(error) {
+    if (error.name === 'ConstraintNotSatisfiedError') {
+      this.errorMsg('The resolution ' + this.constraints.video.width.exact + 'x' +
+          this.constraints.video.width.exact + ' px is not supported by your device.');
+    } else if (error.name === 'PermissionDeniedError') {
+      this.errorMsg('Permissions have not been granted to use your camera and ' +
+        'microphone, you need to allow the page access to your devices in ' +
+        'order for the demo to work.');
+    }
+    this.errorMsg('getUserMedia error: ' + error.name, error);
+  },
+  errorMsg: function(msg, error) {
+    errorElement.innerHTML += '<p>' + msg + '</p>';
+    if (typeof error !== 'undefined') {
+      console.error(error);
+    }
+  },
+  stopVideo: function() {
+    var track = stream.getTracks()[0];  // if only one media track
+    track.stop();
+  },
+  getFrame: function () {
+    // Use capture to get this frame into canvas
+    this.capture();
+    this.animFrame = window.requestAnimationFrame(this.getFrame.bind(this));
+  },
+  capture: function() {
+      this.context.drawImage(this.video, 0, 0, this.width, this.height);
+
+      // Save the image data to an url to future sharing
+      // var dataURL = canvas.toDataURL();
+      // console.log(dataURL);
+      // do other stuff
+  }
+}
+
+module.exports.WebRTC = WebRTC;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scripts_WebRTC_index__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scripts_WebRTC_index___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__scripts_WebRTC_index__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_tracking__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_tracking___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_tracking__);
+
+
+
+var FastTracker = function() {
+  FastTracker.base(this, 'constructor');
+};
+
+tracking.inherits(FastTracker, tracking.Tracker);
+tracking.Fast.THRESHOLD = 2;
+
+FastTracker.prototype.threshold = tracking.Fast.THRESHOLD;
+FastTracker.prototype.track = function(pixels, width, height) {
+  // stats.begin();
+  var gray = tracking.Image.grayscale(pixels, width, height);
+  var corners = tracking.Fast.findCorners(gray, width, height);
+  // stats.end();
+  this.emit('track', {
+    data: corners
+  });
+};
+
+var tracker = new FastTracker();
+
+// Initialize WebRTC object
+var webRTC = new __WEBPACK_IMPORTED_MODULE_0__scripts_WebRTC_index___default.a.WebRTC();
+webRTC.startVideo();
+
+
+var playButton = document.querySelector("#startVideo");
+// var stopButton = document.querySelector("#stopVideo");
+
+playButton.addEventListener('click', function() {
+  webRTC.startVideo();
+});
+
+// stopButton.addEventListener('click', function() {
+//   self.stopVideo();
+// });
+
+
+tracker.on('track', function(event) {
+	console.log("Canvas context", webRTC.context)
+	webRTC.context.clearRect(0, 0, webRTC.width, webRTC.height);
+	var corners = event.data;
+	console.log("EVENT", corners);
+	for (var i = 0; i < corners.length; i += 2) {
+		webRTC.context.fillStyle = '#f00';
+		webRTC.context.fillRect(corners[i], corners[i + 1], 2, 2);
+	}
+});
+
+tracking.track('#video', tracker);
+
+var gui = new dat.GUI();
+
+gui.add(tracker, 'threshold', 1, 100).onChange(function(value) {
+  tracking.Fast.THRESHOLD = value;
+});
+
+
 
 
 /***/ })
