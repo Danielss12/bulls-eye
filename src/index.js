@@ -23,20 +23,6 @@ var tracker = new FastTracker();
 
 // Initialize WebRTC object
 var webRTC = new WebRTC.WebRTC();
-webRTC.startVideo();
-
-
-var playButton = document.querySelector("#startVideo");
-// var stopButton = document.querySelector("#stopVideo");
-
-playButton.addEventListener('click', function() {
-  webRTC.startVideo();
-});
-
-// stopButton.addEventListener('click', function() {
-//   self.stopVideo();
-// });
-
 
 tracker.on('track', function(event) {
 	console.log("Canvas context", webRTC.context)

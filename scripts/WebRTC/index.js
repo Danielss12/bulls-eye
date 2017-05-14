@@ -10,7 +10,7 @@ function WebRTC() {
   // Get DOM elements
   this.errorElement = document.querySelector('#errorMsg');
   this.video = document.querySelector('video');
-  // this.playButton = document.querySelector("#startVideo");
+  this.playButton = document.querySelector("#startVideo");
   this.stopButton = document.querySelector("#stopVideo");
 
   // Put variables in global scope to make them available to the browser console.
@@ -19,15 +19,15 @@ function WebRTC() {
     video:  { width: this.width, height: this.height }
   };
 
-  // this.startVideo();
   // Add event listners
-  // this.playButton.addEventListener('click', function() {
-  //   self.startVideo();
-  // });
+  this.playButton.addEventListener('click', function() {
+    self.startVideo();
+  });
 
   this.stopButton.addEventListener('click', function() {
     self.stopVideo();
   });
+  
   // Create the canvas where we can post frames
   this.canvas = document.querySelector('#myCanvas');
   // this.canvas.setAttribute("id", "myCanvas")

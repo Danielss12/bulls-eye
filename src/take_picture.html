@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Take picture and save on assets</title>
+
+	<script src="../node_modules/tracking/build/tracking-min.js"></script>
+</head>
+<body>
+	<div class="demo-frame">
+	  <div class="demo-container">
+	  	<video id="video"></video>
+	    <canvas id="canvas" width="400" height="400"></canvas>
+	    <a id="takePicture" download="YourFileName.jpg"> Take picture! </a>
+	  </div>
+	</div>
+
+	<script>
+
+		var width = 640;
+		var height = 480;
+
+		var videoElement = document.querySelector('#video');
+		var buttonElement = document.querySelector('#takePicture');
+		var canvasElement = document.querySelector('#canvas');
+		var context = canvas.getContext('2d');
+
+		buttonElement.addEventListener('click', download, false);
+
+		// Put variables in global scope to make them available to the browser console.
+		var constraints = window.constraints = {
+		  audio: false,
+		  video:  { width: width, height: height }
+		};
+
+		navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
+
+		function download(){
+			context.drawImage(videoElement, 0, 0, width, height);
+			var dt = canvas.toDataURL('image/jpeg');
+			this.href = dt;
+		}
+
+		function handleSuccess(stream) {
+		  console.log("STREAM", stream);
+
+		  window.stream = stream; // make variable available to browser console
+		  videoElement.srcObject = stream;
+		  // Stream video to canvas context
+		  // this.getFrame();
+		};
+		function handleError(error) {
+		  if (error.name === 'ConstraintNotSatisfiedError') {
+		    errorMsg('The resolution ' + constraints.video.width.exact + 'x' +
+		        constraints.video.width.exact + ' px is not supported by your device.');
+		  } else if (error.name === 'PermissionDeniedError') {
+		    errorMsg('Permissions have not been granted to use your camera and ' +
+		      'microphone, you need to allow the page access to your devices in ' +
+		      'order for the demo to work.');
+		  }
+		  errorMsg('getUserMedia error: ' + error.name, error);
+		};
+		function errorMsg(msg, error) {
+		  errorElement.innerHTML += '<p>' + msg + '</p>';
+		  if (typeof error !== 'undefined') {
+		    console.error(error);
+		  }
+		}
+	</script>
+</body>
+</html>

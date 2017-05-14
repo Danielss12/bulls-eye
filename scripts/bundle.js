@@ -2534,7 +2534,7 @@ function WebRTC() {
   // Get DOM elements
   this.errorElement = document.querySelector('#errorMsg');
   this.video = document.querySelector('video');
-  // this.playButton = document.querySelector("#startVideo");
+  this.playButton = document.querySelector("#startVideo");
   this.stopButton = document.querySelector("#stopVideo");
 
   // Put variables in global scope to make them available to the browser console.
@@ -2543,15 +2543,15 @@ function WebRTC() {
     video:  { width: this.width, height: this.height }
   };
 
-  // this.startVideo();
   // Add event listners
-  // this.playButton.addEventListener('click', function() {
-  //   self.startVideo();
-  // });
+  this.playButton.addEventListener('click', function() {
+    self.startVideo();
+  });
 
   this.stopButton.addEventListener('click', function() {
     self.stopVideo();
   });
+  
   // Create the canvas where we can post frames
   this.canvas = document.querySelector('#myCanvas');
   // this.canvas.setAttribute("id", "myCanvas")
@@ -2655,20 +2655,6 @@ var tracker = new FastTracker();
 
 // Initialize WebRTC object
 var webRTC = new __WEBPACK_IMPORTED_MODULE_0__scripts_WebRTC_index___default.a.WebRTC();
-webRTC.startVideo();
-
-
-var playButton = document.querySelector("#startVideo");
-// var stopButton = document.querySelector("#stopVideo");
-
-playButton.addEventListener('click', function() {
-  webRTC.startVideo();
-});
-
-// stopButton.addEventListener('click', function() {
-//   self.stopVideo();
-// });
-
 
 tracker.on('track', function(event) {
 	console.log("Canvas context", webRTC.context)
