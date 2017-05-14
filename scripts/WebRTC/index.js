@@ -56,7 +56,7 @@ WebRTC.prototype = {
     window.stream = stream; // make variable available to browser console
     this.video.srcObject = stream;
     // Stream video to canvas context
-    this.getFrame();
+    // this.getFrame();
   },
   handleError: function(error) {
     if (error.name === 'ConstraintNotSatisfiedError') {
